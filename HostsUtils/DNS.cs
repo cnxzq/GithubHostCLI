@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -54,6 +55,31 @@ namespace HostsUtils
                 list.Add(match.Groups[1].Value);
             }
             return list.ToArray();
+        }
+
+
+        public static void flushdns()
+        {
+            callCMD("ipconfig /flushdns");
+        }
+
+        public static void callCMD(string args)
+        {
+            Process p = new Process();
+            p.StartInfo.FileName = "cmd.exe";
+            p.StartInfo.UseShellExecute = false;
+            p.StartInfo.RedirectStandardInput = true;
+            p.StartInfo.RedirectStandardOutput = true;
+            p.StartInfo.RedirectStandardError = true;
+            p.StartInfo.CreateNoWindow = true;
+            p.Start();
+            p.StandardInput.WriteLine(args + "&exit");
+            p.StandardInput.AutoFlush = true;
+            string strOuput = p.StandardOutput.ReadToEnd();
+            p.WaitForExit();
+            p.Close();
+            Console.WriteLine(strOuput);
+            Console.ReadKey();
         }
     }
 }

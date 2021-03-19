@@ -95,7 +95,7 @@ namespace hosts
                 Console.WriteLine("另存到：" + outpath);
             }
             HostsUtils.Helper.UpdateHosts(path, outpath);
-
+            HostsUtils.Helper.flushdns();
             Console.WriteLine("更新完成");
         }
     }

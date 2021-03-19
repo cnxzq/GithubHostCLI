@@ -21,6 +21,10 @@ namespace HostsUtils
             host.Save(target);
         }
 
+        public static void flushdns() {
+            HostsUtils.DNS.flushdns();
+        }
+
         /// <summary>
         /// 更新有 #!标识的
         /// </summary>
