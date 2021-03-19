@@ -92,7 +92,7 @@ namespace HostsUtils
             {
                 Array.ForEach(item.Value, ip =>
                 {
-                    newlines.Add(item.Key + " " + ip);
+                    newlines.Add(ip + " " + item.Key);
                 });
             }
             this.Lines = newlines.ToArray();
@@ -113,7 +113,7 @@ namespace HostsUtils
 
         string[] queryTargetHosts(string[] list)
         {
-            return list.Where(line => line.StartsWith("#!")).Select(line => line.Substring(2).Trim()).ToArray();
+            return list.Where(line => line.StartsWith("#!")).Select(line => line.Substring(2).Trim()).Distinct().ToArray();
         }
     }
 }

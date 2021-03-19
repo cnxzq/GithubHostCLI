@@ -26,9 +26,10 @@ namespace test
             Console.WriteLine(newlist);
             */
 
+            //Helper.UpdateHosts();
+            HostsUtils.Helper.flushdns();
 
-            Helper.UpdateHosts(Hosts.getWinHostsFilePath(), @"D:\host2.txt");
-            Helper.UpdateHosts(@"D:\host1.txt", @"D:\host2.txt");
+            //Helper.UpdateHosts(@"D:\host1.txt", @"D:\host2.txt");
             //HostsUtils.Helper.UpdateHosts("D:\\HOSTS");
             //HostsUtils.Helper.UpdateHosts("D:\\HOSTS", new string[] { "github.com", "observablehq.com" });
         }

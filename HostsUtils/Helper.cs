@@ -9,6 +9,10 @@ namespace HostsUtils
 {
     public static class Helper
     {
+        public static void flushdns()
+        {
+            HostsUtils.DNS.flushdns();
+        }
         /// <summary>
         /// 更新指定hosts，并指定 域名列表
         /// </summary>
@@ -17,30 +21,28 @@ namespace HostsUtils
         public static void UpdateHosts(string hostfile, string target, string[] hosts) {
             Hosts host = new HostsUtils.Hosts(hostfile);
             host.Read();
-            host.UpdateHosts(QueryDNS(hosts));
-            host.Save(target);
-        }
-
-        public static void flushdns() {
-            HostsUtils.DNS.flushdns();
-        }
-
-        /// <summary>
-        /// 更新有 #!标识的
-        /// </summary>
-        /// <param name="hostfile"></param>
-        public static void UpdateHosts(string hostfile, string target)
-        {
-            Hosts host = new HostsUtils.Hosts(hostfile);
-            host.Read();
-            string[] hs = host.QueryTargetHosts();
+            string[] hs = host.QueryTargetHosts().Union(hosts).ToArray();
             host.UpdateHosts(QueryDNS(hs));
             host.Save(target);
         }
+        public static void UpdateHosts(string hostfile, string target)
+        {
+            UpdateHosts(hostfile, target, new string[] { });
+        }
+        public static void UpdateHosts(string hostfile){
+            UpdateHosts(hostfile, hostfile);
+        }
+        public static void UpdateHosts()
+        {
+            string hostfile = HostsUtils.Hosts.getWinHostsFilePath();
+            UpdateHosts(hostfile);
+        }
+
 
         public static IDictionary<string, string[]> QueryDNS(string[] hosts) {
             IDictionary<string, string[]> list = new Dictionary<string, string[]>();
-            foreach (var host in hosts)
+            string[] hosts2 = hosts.Distinct().ToArray();
+            foreach (var host in hosts2)
             {
                 string[] ips = HostsUtils.DNS.query(host);
                 list.Add(host, ips);
