@@ -1,0 +1,9 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="main" GeneratedClassName="module">
+  <Profiles />
+  <Settings>
+    <Setting Name="LastOpenDllPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">dddd  ee阀手动阀</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
